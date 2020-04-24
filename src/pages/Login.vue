@@ -68,6 +68,5 @@
         font-size: 18px;
         cursor: pointer;
         margin: 12px 0;
-
     }
 </style>

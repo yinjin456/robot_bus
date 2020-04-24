@@ -1,8 +1,8 @@
-//目录配置
+//菜单配置
 export default [{
     name: 'fun1',
     meta: {
-        title: '服务总线管理',
+        title: '服务总线中心',
         icon: 'iconfont icon-jichuguanli'
     },
     sub: [
@@ -12,7 +12,7 @@ export default [{
                 index: `/ExaminationDatabase`,
                 title: 'zookeeper设置',
                 type: 'menu',
-                active: false
+                active: true
             }
         },
         {
@@ -21,24 +21,24 @@ export default [{
                 index: `/BusManage`,
                 title: '服务总线实例管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }
     ]
 }, {
     name: 'fun2',
     meta: {
-        title: '注册查询中心管理',
+        title: '注册查询管理中心',
         icon: 'iconfont icon-gongnengdingyi'
     },
     sub: [
         {
-            name: 'addPapers',
+            name: 'Configure',
             meta: {
-                index: `/AddPapers`,
+                index: `/Configure`,
                 title: '注册查询中心配置',
                 type: 'menu',
-                active: false
+                active: true
             }
         }, {
             name: 'papersList',
@@ -49,20 +49,20 @@ export default [{
                 active: false
             }
         }, {
-            name: 'papersList',
+            name: 'Robots',
             meta: {
-                index: `/PapersList`,
+                index: `/Robots`,
                 title: '机器人注册管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }, {
-            name: 'papersList',
+            name: 'ServiceComponents',
             meta: {
-                index: `/PapersList`,
+                index: `/ServiceComponents`,
                 title: '服务组件注册管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }
     ]
@@ -79,7 +79,7 @@ export default [{
                 index: `/ExaminationPerformance`,
                 title: 'DDS主题管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }, {
             name: 'DataAnalysis',
@@ -87,14 +87,14 @@ export default [{
                 index: `/DataAnalysis`,
                 title: 'DDS主题订阅管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }
     ]
 }, {
     name: 'fun4',
     meta: {
-        title: '用户权限管理',
+        title: '用户权限管理中心',
         icon: 'iconfont icon-quanxianshenpi'
     },
     sub: [
@@ -104,7 +104,7 @@ export default [{
                 index: `/UserManage`,
                 title: '用户管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }, {
             name: 'papersList',
@@ -112,7 +112,7 @@ export default [{
                 index: `/PapersList`,
                 title: '角色管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }
     ]

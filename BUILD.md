@@ -1,6 +1,13 @@
 # 开发指南
 
-在进行开发和构建前请先安装环境
+## 一、准备
+
+### :hammer: 开发工具
+- WebStorm / VS code
+- npm
+- Vue Devtools
+
+### :globe_with_meridians: 开发环境
 
 - 自动安装（如果自动安装失败请手动安装）
 ```
@@ -11,42 +18,49 @@ npm install
 ```
 npm i element-ui -S
 npm install --save vue-router
+npm install --save nprogress
 npm install
 ```
 
-## 开发
+<br>
 
-### 图标来源
-[阿里云IoT事业部](https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=12507)
+## 二、开发
 
-### 目录说明
-
+### :book:  目录说明
 
 
 
+### :walking:  命名原则
+
+文件命名：在驼峰原则基础上将首字母大写
+
+变量命名：驼峰命名法
 
 
-## 构建
 
-### 热重启编译 （开发用）
+<br>
+
+## 三、构建&生产
+
+### :bulb: 热重启编译 （开发用）
 ```
 npm run serve
 ```
 
-### 压缩编译 （产品用）
+### :flags: 压缩编译 （产品用）
 ```
 npm run build
 ```
 
-### 运行测试
+### :video_game: 运行测试
 ```
 npm run test
 ```
 
-### 分析修复文件
+### :wind_chime: 分析修复文件
 ```
 npm run lint
 ```
 
-### 自定义配置
+### :paperclip: 自定义配置
 See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -7,7 +7,15 @@
                     <!--<img src="resource/images/LOGO.png" width="50" height="50">-->
                     <p class="top-layout-title">机器人服务总线控制系统</p>
                 </div>
-                <div>
+
+                <div class="top-layout-exit">
+                    <el-tooltip class="item"  placement="top-start" effect="light" style="padding:0;margin:0">
+                        <div slot="content" class="top-layout-pop">
+                            <button>我的信息</button><br>
+                            <button>登出账户</button>
+                        </div>
+                        <span><i class="iconfont  icon-icon_zhanghao"></i>欢迎您，xxx！</span>
+                    </el-tooltip>
 
                 </div>
             </el-header>
@@ -21,7 +29,7 @@
                         :collapse="isCollapse"
                         :unique-opened="true"
                         background-color="#FFFFFF"
-                        text-color="#3F3C7E"
+                        text-color="#7575a3"
                         active-text-color="#3F3C7E"
                         ref="mySidemenu"
                         router
@@ -32,7 +40,7 @@
                             <span v-text="item.meta.title"></span>
                         </template>
                         <el-menu-item-group v-for="sub in item.sub" :key="sub.name">
-                            <el-menu-item :index="sub.meta.index" v-text="sub.meta.title">
+                            <el-menu-item  v-if="sub.meta.active" :index="sub.meta.index" v-text="sub.meta.title">
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
@@ -65,7 +73,8 @@
             return {
                 menu: menu,
                 isCollapse: false,
-                screenWidth: document.body.clientWidth
+                screenWidth: document.body.clientWidth,
+                exit:false
             };
         },
         watch: {
@@ -95,6 +104,9 @@
             openclose() {
                 this.isCollapse = !this.isCollapse
             },
+            oocexit(){
+                this.exit = !this.exit
+            }
         },
         mounted(){
             const that = this
@@ -121,17 +133,50 @@
     .top-layout {
         width: 100%;
         background-color: #3F85ED;
+        padding: 0 25px;
         display: flex;
         justify-content: space-between;
     }
 
     .top-layout-logo {
         display: flex;
-        padding-left: 10px;
+        padding-top: 2px;
     }
 
     .top-layout-logo img {
         padding-top: 7px;
+    }
+    .top-layout-exit {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        line-height: 150%;
+        padding: 15px;
+        color: white;
+        cursor: pointer;
+    }
+    .top-layout-exit i{
+        font-size: 1.5em;
+        font-weight: bolder;
+        margin-right: 8px;
+        color: white;
+    }
+    .top-layout-pop {
+        height: 70px;
+        width: 110px;
+        padding: 0;
+        margin: 0;
+    }
+    .top-layout-pop button {
+        height: 35px;
+        width: 110px;
+        border: none;
+        background-color: white;
+        font-size: 1.3em;
+        cursor: pointer;
+    }
+    .top-layout-pop button:hover {
+        background-color: #dedede;
     }
 
     .top-layout-title {
@@ -149,7 +194,7 @@
     }
 
     i {
-        font-size: 20px;
+        font-size: 1.3em;
         color: #3F3C7E;
     }
 
@@ -171,7 +216,7 @@
     }
 
     .bottom-layout-content {
-        height: 84.6vh;
+        height: 84.2vh;
         border-radius: 5px;
         background: #fff;
 
@@ -180,7 +225,7 @@
     .bottom-layout-view {
         border-radius: 5px;
         background: #fff;
-        padding: 10px 20px;
+        padding: 8px 20px;
     }
 
     .el-menu {

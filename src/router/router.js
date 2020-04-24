@@ -6,8 +6,9 @@ const Basic = r => require.ensure([], () => r(require('@/pages/Basic')), 'Basic'
 const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'Home')
 const BusManage = r => require.ensure([], () => r(require('@/pages/bus/BusManage')), 'BusManage')
 const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
-
-
+const ServiceComponents = r => require.ensure([], () => r(require('@/pages/registration/ServiceComponents')), 'ServiceComponents')
+const Robots = r => require.ensure([], () => r(require('@/pages/registration/Robots')), 'Robots')
+const Configure = r => require.ensure([], () => r(require('@/pages/registration/Configure')), 'Configure')
 
 export default [{
     path:'/',
@@ -47,7 +48,26 @@ export default [{
                     name:'/UserManage',
                     path:'/UserManage',
                     component:UserManage
+                },
+                //服务组件注册管理
+                {
+                    name:'/ServiceComponents',
+                    path:'/ServiceComponents',
+                    component:ServiceComponents
+                },
+                //机器人注册管理
+                {
+                    name:'/Robots',
+                    path:'/Robots',
+                    component:Robots
+                },
+                //注册查询中心配置
+                {
+                    name:'/Configure',
+                    path:'/Configure',
+                    component:Configure
                 }
+
             ]
         }
     ]
