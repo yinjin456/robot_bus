@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="机器人" name="1">
+            <el-tab-pane label="服务总线实例" name="1">
                 <div>
                     <el-table
                             :data="tableData"
@@ -16,34 +16,33 @@
                         </el-table-column>
                         <el-table-column
                                 prop="name"
-                                label="机器人名称"
-                                min-width="300">
+                                label="服务总线名称">
                         </el-table-column>
                         <el-table-column
-                                prop="type"
-                                label="机器人类型"
-                                width="240">
+                                prop="address"
+                                label="ip地址及端口号"
+                                width="180">
                         </el-table-column>
                         <el-table-column
-                                prop="factory"
-                                label="机器人生产厂家"
-                                width="200">
+                                prop="quality"
+                                label="服务总线负载均衡权重"
+                                width="170">
                         </el-table-column>
                         <el-table-column
-                                min-width="160px"
+                                width="200"
                                 label="启动/停止">
                             <template slot-scope="scope">
-                                <el-button type="warning" @click="Grade(scope.row)" size="small">启动</el-button>
-                                <el-button type="success" @click="Grade(scope.row)" size="small">停止</el-button>
+                                <el-button type="warning" @click="Grade(scope.row)" size="mini">启动</el-button>
+                                <el-button type="success" @click="Grade(scope.row)" size="mini">停止</el-button>
                             </template>
                         </el-table-column>
                         <el-table-column
-                                min-width="160px"
+                                width="180"
                                 label="操作">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="Grade(scope.row)" size="small">编辑</el-button>
+                                <el-button type="text" @click="Grade(scope.row)" size="mini">编辑</el-button>
                                 <!--                        <el-button @click="knowledgePoint(scope.row)" type="text" size="small">知识点</el-button>-->
-                                <el-button type="text" @click="analysis(scope.row)" size="small">删除</el-button>
+                                <el-button type="text" @click="analysis(scope.row)" size="mini">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -59,7 +58,7 @@
                     </el-pagination>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="新增机器人" name="2">
+            <el-tab-pane label="新增服务总线实例" name="2">
                 no content
             </el-tab-pane>
         </el-tabs>
@@ -68,15 +67,15 @@
 
 <script>
     export default {
-        name: "robots",
+        name: "BusManage",
         data() {
             return {
                 activeName: '1',
                 tableData: [{
                     num: '1',
-                    name: '机械臂asd22',
-                    type: '工业',
-                    factory:'河南电子厂'
+                    name: 'ACG顺丰长沙配送站服务总线',
+                    address: '225.225.225.225：8080',
+                    quality:'0.6'
                 },],
                 currentPage4: 1
             };

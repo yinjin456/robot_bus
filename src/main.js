@@ -4,11 +4,17 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/icon/iconfont.css';
 import VueRouter from 'vue-router'
 import routes from './router/router.js'
+import axios from 'axios';
 import App from './App.vue'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+Vue.prototype.axios = axios;
+Vue.prototype.Global = {
+  baseUrl:'http://106.13.177.169:9099',
+};
+
 
 
 const router = new VueRouter({

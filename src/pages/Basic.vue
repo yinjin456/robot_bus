@@ -3,9 +3,9 @@
         <el-container>
             <!--顶部-->
             <el-header class="top-layout" height="8vh">
-                <div class="top-layout-logo">
+                <div class="top-layout-logo" @click="jumphome()">
                     <!--<img src="resource/images/LOGO.png" width="50" height="50">-->
-                    <p class="top-layout-title">机器人服务总线控制系统</p>
+                    <p class="top-layout-title">中间件服务总线控制系统</p>
                 </div>
 
                 <div class="top-layout-exit">
@@ -104,8 +104,8 @@
             openclose() {
                 this.isCollapse = !this.isCollapse
             },
-            oocexit(){
-                this.exit = !this.exit
+            jumphome(){
+                this.$router.push({path:'/Home'})
             }
         },
         mounted(){
@@ -126,8 +126,6 @@
         width: 100%;
         height: 100%;
         background-color: #E4EFFF;
-        -webkit-user-select: none;
-        user-select: none;
     }
 
     .top-layout {
@@ -141,6 +139,7 @@
     .top-layout-logo {
         display: flex;
         padding-top: 2px;
+        cursor: pointer;
     }
 
     .top-layout-logo img {

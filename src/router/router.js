@@ -4,11 +4,18 @@ import App from '../App.vue'
 const Login = r => require.ensure([], () => r(require('@/pages/Login')), 'Login')
 const Basic = r => require.ensure([], () => r(require('@/pages/Basic')), 'Basic')
 const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'Home')
-const BusManage = r => require.ensure([], () => r(require('@/pages/bus/BusManage')), 'BusManage')
+const Building = r => require.ensure([], () => r(require('@/pages/Building')), 'Building')
+const BusManage = r => require.ensure([], () => r(require('@/pages/service-bus/BusManage')), 'BusManage')
 const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
-const ServiceComponents = r => require.ensure([], () => r(require('@/pages/registration/ServiceComponents')), 'ServiceComponents')
-const Robots = r => require.ensure([], () => r(require('@/pages/registration/Robots')), 'Robots')
-const Configure = r => require.ensure([], () => r(require('@/pages/registration/Configure')), 'Configure')
+const Robots = r => require.ensure([], () => r(require('@/pages/service-registration/robot/Robots')), 'Robots')
+const RobotDetail = r => require.ensure([], () => r(require('@/pages/service-registration/robot/RobotDetail')), 'RobotDetail')
+const Registration = r => require.ensure([], () => r(require('@/pages/service-registration/registration-service/Registration')), 'Registration')
+const RegistrationDetail = r => require.ensure([], () => r(require('@/pages/service-registration/registration-service/RegistrationDetail')), 'RegistrationDetail')
+const ServiceComponents = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponents')), 'ServiceComponents')
+const ServiceComponentDetail = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponentDetail')), 'ServiceComponentDetail')
+const SubscribeManagement = r => require.ensure([], () => r(require('@/pages/dds/SubscribeManagement')), 'SubscribeManagement')
+const ThemeManagement = r => require.ensure([], () => r(require('@/pages/dds/ThemeManagement')), 'ThemeManagement')
+
 
 export default [{
     path:'/',
@@ -37,6 +44,12 @@ export default [{
                     path:'/Home',
                     component:Home
                 },
+                //构建页
+                {
+                    name:'/Building',
+                    path:'/Building',
+                    component:Building
+                },
                 //总线管理
                 {
                     name:'/BusManage',
@@ -55,17 +68,47 @@ export default [{
                     path:'/ServiceComponents',
                     component:ServiceComponents
                 },
+                //服务组件详情
+                {
+                    name:'/ServiceComponentDetail',
+                    path:'/ServiceComponentDetail',
+                    component:ServiceComponentDetail
+                },
                 //机器人注册管理
                 {
                     name:'/Robots',
                     path:'/Robots',
                     component:Robots
                 },
-                //注册查询中心配置
+                //机器人注册管理详情
                 {
-                    name:'/Configure',
-                    path:'/Configure',
-                    component:Configure
+                    name:'/RobotDetail',
+                    path:'/RobotDetail',
+                    component:RobotDetail
+                },
+                //注册查询中心
+                {
+                    name:'/Registration',
+                    path:'/Registration',
+                    component:Registration
+                },
+                //注册查询中心详情
+                {
+                    name:'/RegistrationDetail',
+                    path:'/RegistrationDetail',
+                    component:RegistrationDetail
+                },
+                //DDS主题管理
+                {
+                    name:'/ThemeManagement',
+                    path:'/ThemeManagement',
+                    component:ThemeManagement
+                },
+                //DDS主题订阅管理
+                {
+                    name:'/SubscribeManagement',
+                    path:'/SubscribeManagement',
+                    component:SubscribeManagement
                 }
 
             ]

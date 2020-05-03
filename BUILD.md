@@ -19,6 +19,7 @@ npm install
 npm i element-ui -S
 npm install --save vue-router
 npm install --save nprogress
+npm install axios
 npm install
 ```
 

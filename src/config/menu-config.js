@@ -2,14 +2,14 @@
 export default [{
     name: 'fun1',
     meta: {
-        title: '服务总线中心',
+        title: '服务总线管理',
         icon: 'iconfont icon-jichuguanli'
     },
     sub: [
         {
-            name: 'examinationDatabase',
+            name: 'Building',
             meta: {
-                index: `/ExaminationDatabase`,
+                index: `/Building`,
                 title: 'zookeeper设置',
                 type: 'menu',
                 active: true
@@ -28,14 +28,14 @@ export default [{
 }, {
     name: 'fun2',
     meta: {
-        title: '注册查询管理中心',
+        title: '服务注册查询',
         icon: 'iconfont icon-gongnengdingyi'
     },
     sub: [
         {
-            name: 'Configure',
+            name: 'Registration',
             meta: {
-                index: `/Configure`,
+                index: `/Registration`,
                 title: '注册查询中心配置',
                 type: 'menu',
                 active: true
@@ -69,22 +69,22 @@ export default [{
 }, {
     name: 'fun3',
     meta: {
-        title: 'DDS主题管理中心',
+        title: 'DDS主题订阅',
         icon: 'iconfont icon-yingyongguanli'
     },
     sub: [
         {
-            name: 'examinationPerformance',
+            name: 'ThemeManagement',
             meta: {
-                index: `/ExaminationPerformance`,
+                index: `/ThemeManagement`,
                 title: 'DDS主题管理',
                 type: 'menu',
                 active: true
             }
         }, {
-            name: 'DataAnalysis',
+            name: 'SubscribeManagement',
             meta: {
-                index: `/DataAnalysis`,
+                index: `/SubscribeManagement`,
                 title: 'DDS主题订阅管理',
                 type: 'menu',
                 active: true
@@ -94,7 +94,7 @@ export default [{
 }, {
     name: 'fun4',
     meta: {
-        title: '用户权限管理中心',
+        title: '用户权限管理',
         icon: 'iconfont icon-quanxianshenpi'
     },
     sub: [
@@ -107,9 +107,9 @@ export default [{
                 active: true
             }
         }, {
-            name: 'papersList',
+            name: 'Building',
             meta: {
-                index: `/PapersList`,
+                index: `/Building`,
                 title: '角色管理',
                 type: 'menu',
                 active: true

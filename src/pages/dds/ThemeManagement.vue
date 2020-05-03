@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="服务组件" name="1">
+            <el-tab-pane label="主题列表" name="1">
                 <div>
                     <el-table
                             :data="tableData"
@@ -16,29 +16,30 @@
                         </el-table-column>
                         <el-table-column
                                 prop="name"
-                                label="服务组件名称"
-                                min-width="300">
+                                label="主题名称">
                         </el-table-column>
                         <el-table-column
-                                prop="from"
-                                label="From端点"
-                                width="240">
+                                prop="filed"
+                                label="域ID">
                         </el-table-column>
                         <el-table-column
-                                prop="to"
-                                label="To端点"
+                                prop="icr"
+                                label="ICR文件">
+                        </el-table-column>
+                        <el-table-column
+                                prop="date"
+                                label="创建时间"
                                 width="200">
                         </el-table-column>
                         <el-table-column
-                                min-width="160px"
-                                label="运行状态">
+                                width="140"
+                                label="创建时间">
                             <template slot-scope="scope">
-                                <div @click="Grade(scope.row)" style="color: #1fa821">启动</div>
-                                <div @click="Grade(scope.row)" style="color: #c62c2c">停止</div>
+                                <el-button type="text" @click="Grade(scope.row)" size="small">查看</el-button>
                             </template>
                         </el-table-column>
                         <el-table-column
-                                min-width="160px"
+                                width="180"
                                 label="操作">
                             <template slot-scope="scope">
                                 <el-button type="text" @click="Grade(scope.row)" size="small">编辑</el-button>
@@ -59,7 +60,7 @@
                     </el-pagination>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="新增服务组件" name="2">
+            <el-tab-pane label="新增主题" name="2">
                 no content
             </el-tab-pane>
         </el-tabs>
@@ -68,15 +69,16 @@
 
 <script>
     export default {
-        name: "ServiceComponents",
+        name: "ThemeManagement",
         data() {
             return {
                 activeName: '1',
                 tableData: [{
                     num: '1',
-                    name: 'ACG顺丰长沙配送站服务总线',
-                    address: '12.121.24.80：8080',
-                    quality:'0.6'
+                    name: 'ABB机器人',
+                    field: '1788888888',
+                    icr:'addd4s56.icr',
+                    date:'2020-4-20'
                 },],
                 currentPage4: 1
             };
