@@ -44,11 +44,13 @@ npm install
 ## 三、构建&生产
 
 ### :bulb: 热重启编译 （开发用）
+运行前将vue.config.js文件内容进行注释
 ```
 npm run serve
 ```
 
 ### :flags: 压缩编译 （产品用）
+运行前将vue.config.js文件内容进行解注释
 ```
 npm run build
 ```

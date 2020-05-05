@@ -27,7 +27,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-input placeholder="请输入内容" v-model="serviceComponent.portNumber">
-                        <template slot="prepend">端口号</template>
+                        <template slot="prepend">端口名</template>
                     </el-input>
                 </el-col>
             </el-row>
@@ -51,7 +51,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-input placeholder="请输入内容" v-model="serviceComponent.minorVersion">
-                        <template slot="prepend">最小版本号</template>
+                        <template slot="prepend">小版本号</template>
                     </el-input>
                 </el-col>
             </el-row>
@@ -105,37 +105,33 @@
             },
             updateServiceComponent(){
                 var that = this;
-                console.log(that.serviceComponent.serviceId)
-                this.axios
-                    .post(this.Global.baseUrl + '/updateServiceComponent', {
-                        params: {
-                            serviceId:that.serviceComponent.serviceId,
-                            routingTo:that.serviceComponent.routingTo,
-                            routingFrom:that.serviceComponent.routingFrom,
-                            minorVersion:that.serviceComponent.minorVersion,
-                            majorVersion:that.serviceComponent.majorVersion,
-                            wsdlURL:that.serviceComponent.wsdlURL,
-                            targetNamespace:that.serviceComponent.targetNamespace,
-                            portNumber:that.serviceComponent.portNumber,
-                            serviceName:that.serviceComponent.serviceName,
-                            bindingAddress:that.serviceComponent.bindingAddress,
-                            serviceType:that.serviceComponent.serviceType
-                        }
-                    })
-                    .then(function (response) {
-                        console.log(response);
-                        if(response.data.result==1){
-                            that.$message({
-                                message: '修改成功',
-                                type: 'success'
-                            });
-                        }else{
-                            that.$message.error('修改失败：' + response.data.message);
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
+                this.axios({
+                    url: this.Global.baseUrl + '/updateServiceComponent',
+                    method: 'POST',
+                    params: {
+                        routingTo:that.serviceComponent.routingTo,
+                        routingFrom:that.serviceComponent.routingFrom,
+                        minorVersion:that.serviceComponent.minorVersion,
+                        majorVersion:that.serviceComponent.majorVersion,
+                        wsdlURL:that.serviceComponent.wsdlURL,
+                        targetNamespace:that.serviceComponent.targetNamespace,
+                        portNumber:that.serviceComponent.portNumber,
+                        serviceName:that.serviceComponent.serviceName,
+                        bindingAddress:that.serviceComponent.bindingAddress,
+                        serviceType:that.serviceComponent.serviceType,
+                        serviceId:that.serviceComponent.serviceId
+                    },
+                    headers:{'Content-Type': "application/json"}
+                }).then(function (response) {
+                    console.log(response);
+                    that.$message({
+                        message: '修改成功',
+                        type: 'success'
                     });
+                }).catch(function (error) {
+                    that.$message.error('修改失败');
+                    console.log(error);
+                });
             },
             deleteServiceComponent(){
                 this.$confirm('确认要删除该服务组件吗', '删除确认', {
@@ -179,26 +175,14 @@
     .content-id{
         border-radius: 4px;
         margin: 5px 0 25px 0;
+        font-weight: bolder;
+        color: #767676;
     }
     .el-row {
         margin-bottom: 20px;
         &:last-child {
             margin-bottom: 0;
         }
-    }
-    .el-col {
-        border-radius: 4px;
-    }
-    .bg-purple {
-        background: #d3dce6;
-    }
-    .grid-content {
-        border-radius: 4px;
-        height: 45px;
-    }
-    .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
     }
     .button-box{
         margin-top: 50px;

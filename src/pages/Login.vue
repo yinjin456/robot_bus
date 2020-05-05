@@ -6,10 +6,10 @@
                 <input type="text" placeholder="用户名" name="" value="" />
             </div>
             <div class="text-box">
-
                 <input type="password" placeholder="密码" name="" value="" />
             </div>
             <input class="btn" type="button" name="" value="登录" @click="logining"/>
+            tip：当前未接入用户系统，直接登录即可
         </div>
     </div>
 </template>

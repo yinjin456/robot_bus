@@ -13,8 +13,9 @@ const Registration = r => require.ensure([], () => r(require('@/pages/service-re
 const RegistrationDetail = r => require.ensure([], () => r(require('@/pages/service-registration/registration-service/RegistrationDetail')), 'RegistrationDetail')
 const ServiceComponents = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponents')), 'ServiceComponents')
 const ServiceComponentDetail = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponentDetail')), 'ServiceComponentDetail')
-const SubscribeManagement = r => require.ensure([], () => r(require('@/pages/dds/SubscribeManagement')), 'SubscribeManagement')
-const ThemeManagement = r => require.ensure([], () => r(require('@/pages/dds/ThemeManagement')), 'ThemeManagement')
+const Subscribe = r => require.ensure([], () => r(require('@/pages/dds/subscribe/Subscribe')), 'Subscribe')
+const Topic = r => require.ensure([], () => r(require('@/pages/dds/topic/Topic')), 'Topic')
+const TopicDetail = r => require.ensure([], () => r(require('@/pages/dds/topic/TopicDetail')), 'TopicDetail')
 
 
 export default [{
@@ -100,15 +101,21 @@ export default [{
                 },
                 //DDS主题管理
                 {
-                    name:'/ThemeManagement',
-                    path:'/ThemeManagement',
-                    component:ThemeManagement
+                    name:'/Topic',
+                    path:'/Topic',
+                    component:Topic
+                },
+                //DDS主题管理详情
+                {
+                    name:'/TopicDetail',
+                    path:'/TopicDetail',
+                    component:TopicDetail
                 },
                 //DDS主题订阅管理
                 {
-                    name:'/SubscribeManagement',
-                    path:'/SubscribeManagement',
-                    component:SubscribeManagement
+                    name:'/Subscribe',
+                    path:'/Subscribe',
+                    component:Subscribe
                 }
 
             ]

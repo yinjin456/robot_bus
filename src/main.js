@@ -13,6 +13,7 @@ Vue.use(ElementUI);
 Vue.prototype.axios = axios;
 Vue.prototype.Global = {
   baseUrl:'http://106.13.177.169:9099',
+  baseUrl2:'http://106.13.177.169:8001',
 };
 
 

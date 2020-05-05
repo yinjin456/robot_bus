@@ -2,16 +2,15 @@
     <div>
         <div class="desc">主题名称：ABB其停机状态</div>
         <div class="desc">域ID：7888888888</div>
-        <div class="desc">ICR文件：abb95513.icr</div>
         <div>
             <el-table
                     :data="tableData"
                     stripe
                     style="width: 100%"
                     size="mini"
-                    height="380">
+                    height="67vh">
                 <el-table-column
-                        prop="num"
+                        prop="topicId"
                         label="序号"
                         width="100">
                 </el-table-column>
@@ -43,11 +42,11 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
+                    :current-page="currentPage"
                     :page-sizes="[100, 200, 300, 400]"
-                    :page-size="100"
+                    :page-size="pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="400">
+                    :total="total">
             </el-pagination>
         </div>
     </div>
@@ -59,25 +58,54 @@
         data() {
             return {
                 activeName: '1',
-                tableData: [{
-                    num: '1',
-                    address: 'http://127.0.0.1:8080/getabbstopsstartr1',
-                    startdate: '2020-4-20',
-                    enddate:'2020-4-21'
-                },],
-                currentPage4: 1
+                tableData: [],
+                pageSize: 20,
+                currentPage: 1,
+                total:0,
+                registerCenter:null
             };
         },
         methods: {
             handleClick(tab, event) {
                 console.log(tab, event);
             },
+            // 每页的条数改变
             handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
+                this.pageSize = val;
+                this.currentPage = 1;
+                this.request();
             },
+            // 更改页面
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            }
+                this.currentPage = val;
+                this.request();
+            },
+            getList() {
+                var that = this;
+                this.axios
+                    .get(this.Global.baseUrl + '/topic/getPage' + this.currentPage, {
+                        params: {
+                            size:this.pageSize
+                        },
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        that.tableData = response.data.datas;
+                        that.total = response.data.data.totalCount;
+                        that.currentPage = response.data.data.currentPage;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            jumpRobotDetail(index, rows){
+                this.$router.push({
+                    path: '/RobotDetail',
+                    query: {
+                        robotId: rows[index].robotId
+                    }
+                })
+            },
         }
     }
 </script>
@@ -87,5 +115,22 @@
         margin: 15px 0;
         font-size: 0.85em;
         letter-spacing: 0.5px;
+    }
+    .content{
+        padding: 10px;
+    }
+    .el-row {
+        margin-bottom: 8px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .button-box{
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .ebutton{
+        width: 130px;
     }
 </style>

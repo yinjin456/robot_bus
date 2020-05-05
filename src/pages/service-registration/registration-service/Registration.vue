@@ -1,70 +1,37 @@
 <template>
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="注册中心" name="1">
-                <div>
-                    <el-table
-                            :data="tableData"
-                            stripe
-                            style="width: 100%"
-                            size="mini"
-                            height="440">
-                        <el-table-column
-                                prop="servicecenterId"
-                                label="序号"
-                                width="100">
-                        </el-table-column>
-                        <el-table-column
-                                prop="robotregisterservicewsdl"
-                                label="机器人服务WSDL">
-                        </el-table-column>
-                        <el-table-column
-                                prop="servicecomponentregisterwsdl"
-                                label="服务组件WSDL">
-                        </el-table-column>
-                        <el-table-column
-                                prop="commonxsdlink"
-                                label="机器人通用xsd">
-                        </el-table-column>
-                        <el-table-column
-                                prop="extendxsdlink"
-                                label="机器人扩展xsd">
-                        </el-table-column>
-                        <el-table-column
-                                prop="robotupdatestateservicewsdl"
-                                label="机器人更新状态服务wsdl">
-                        </el-table-column>
-                        <el-table-column
-                                width="80"
-                                label="运行状态">
-                            <template slot-scope="scope">
-                                <div @click="Grade(scope.row)" style="color: #1fa821">启动</div>
-                                <!--                                <div @click="Grade(scope.row)" style="color: #c62c2c">停止</div>-->
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                                width="100"
-                                label="操作">
-                            <template slot-scope="scope">
-                                <el-button type="text" @click="jumpRegistrationDetail(scope.$index, tableData)" size="small">详情</el-button>
-                                <!--                        <el-button @click="knowledgePoint(scope.row)" type="text" size="small">知识点</el-button>-->
-                                <el-button type="text" @click="analysis(scope.row)" size="small">删除</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <div style="margin: 8px 0"></div>
-                    <el-pagination
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page="currentPage"
-                            :page-sizes="[20, 50, 100]"
-                            :page-size="20"
-                            layout="total, sizes, prev, pager, next, jumper"
-                            :total="400">
-                    </el-pagination>
+            <el-tab-pane v-if="registerCenter.needRegis==true" label="绑定注册中心" name="1">
+                <div class="content">
+                    <el-alert
+                            title="Tip : 当前还未配置注册中心，请先进行配置！"
+                            type="warning">
+                    </el-alert>
+                    <div class="input-box">
+                        <el-form label-position="left" label-width="200px" :model="registerCenter">
+                            <el-form-item label="机器人注册服务WSDL">
+                                <el-input v-model="registerCenter.robotregisterservicewsdl"></el-input>
+                            </el-form-item>
+                            <el-form-item label="服务组件注册服务WSDL">
+                                <el-input v-model="registerCenter.servicecomponentregisterwsdl"></el-input>
+                            </el-form-item>
+                            <el-form-item label="机器人状态更新服务WSDL">
+                                <el-input v-model="registerCenter.commonxsdlink"></el-input>
+                            </el-form-item>
+                            <el-form-item label="机器人共性XSD链接">
+                                <el-input v-model="registerCenter.extendxsdlink"></el-input>
+                            </el-form-item>
+                            <el-form-item label="机器人类型XSD链接">
+                                <el-input v-model="registerCenter.robotupdatestateservicewsdl"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                    <div class="button-box">
+                        <el-button type="warning" class="ebutton" @click="updateRegisterCenter">确认配置</el-button>
+                    </div>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="新增注册中心" name="2">
+            <el-tab-pane v-else label="注册中心" name="1">
                 <div class="content">
                     <div class="input-box">
                         <el-input placeholder="请输入内容" v-model="registerCenter.robotregisterservicewsdl" class="input">
@@ -84,7 +51,7 @@
                         </el-input>
                     </div>
                     <div class="button-box">
-                        <el-button type="warning" class="ebutton" @click="addRegisterCenter">确认添加</el-button>
+                        <el-button type="warning" class="ebutton" @click="updateRegisterCenter">确认修改</el-button>
                     </div>
                 </div>
             </el-tab-pane>
@@ -98,10 +65,17 @@
         data() {
             return {
                 activeName: '1',
-                tableData: [],
                 pageSize: 20,
                 currentPage: 1,
-                registerCenter: {}
+                total:0,
+                registerCenter: {
+                    robotregisterservicewsdl:null,
+                    servicecomponentregisterwsdl:null,
+                    commonxsdlink:null,
+                    extendxsdlink:null,
+                    robotupdatestateservicewsdl:null,
+                    needRegis:true
+                }
             };
         },
         methods: {
@@ -119,18 +93,53 @@
                 this.currentPage = val;
                 this.request();
             },
-            getRegisterCenterList() {
+            getDefaultRegisterCenter() {
                 var that = this;
                 this.axios
-                    .get(this.Global.baseUrl + '/getRegisterCenterList', {
+                    .get(this.Global.baseUrl + '/getDefaultRegisterCenter')
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.message=="找不到相应的记录"){
+                            that.registerCenter = {
+                                robotregisterservicewsdl:null,
+                                servicecomponentregisterwsdl:null,
+                                commonxsdlink:null,
+                                extendxsdlink:null,
+                                robotupdatestateservicewsdl:null,
+                                needRegis:true
+                            }
+                        }else{
+                            that.registerCenter = response.data
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            updateRegisterCenter(){
+                var that = this;
+                this.axios
+                    .post(this.Global.baseUrl + '/updateRegisterCenter', {
                         params: {
-                            pageIndex: that.currentPage,
-                            pageSize: that.pageSize
-                        },
+                            serviceCenter_id:10000,
+                            robotRegisterServiceWSDL:that.registerCenter.robotRegisterServiceWSDL,
+                            serviceComponentRegisterWSDL:that.registerCenter.serviceComponentRegisterWSDL,
+                            commonXSDlink:that.registerCenter.commonXSDlink,
+                            extendXSDLink:that.registerCenter.extendXSDLink,
+                            robotUpdateStateServiceWSDL:that.registerCenter.robotUpdateStateServiceWSDL,
+                        }
                     })
                     .then(function (response) {
                         console.log(response);
-                        that.tableData = response.data.rows;
+                        if(response.data.result==1){
+                            that.$message({
+                                message: '修改成功',
+                                type: 'success'
+                            });
+                        }else{
+                            that.$message.error('修改失败：' + response.data.message);
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -147,7 +156,7 @@
             addRegisterCenter(){
                 var that = this;
                 this.axios
-                    .post(this.Global.baseUrl + '/addServiceComponent', {
+                    .post(this.Global.baseUrl + '/addRegisterCenter', {
                         params: {
                             robotRegisterServiceWSDL:that.registerCenter.robotRegisterServiceWSDL,
                             serviceComponentRegisterWSDL:that.registerCenter.serviceComponentRegisterWSDL,
@@ -175,7 +184,7 @@
             }
         },
         mounted() {
-            this.getRegisterCenterList()
+            this.getDefaultRegisterCenter()
         }
     }
 </script>
@@ -202,10 +211,10 @@
         background-color: #f9fafc;
     }
     .input-box{
-        margin-bottom: 15px;
+        margin: 10px 0;
     }
     .input{
-        margin: 10px 0 20px 0;
+        margin: 5px 0 15px 0;
     }
     .button-box{
         margin-top: 30px;

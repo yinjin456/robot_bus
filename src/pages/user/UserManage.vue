@@ -7,8 +7,8 @@
                             :data="tableData"
                             stripe
                             style="width: 100%"
-                            size="mini"
-                            height="440">
+                            size="small"
+                            height="69vh">
                         <el-table-column
                                 prop="num"
                                 label="序号"

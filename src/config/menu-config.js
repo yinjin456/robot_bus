@@ -74,20 +74,20 @@ export default [{
     },
     sub: [
         {
-            name: 'ThemeManagement',
+            name: 'Topic',
             meta: {
-                index: `/ThemeManagement`,
+                index: `/Topic`,
                 title: 'DDS主题管理',
                 type: 'menu',
                 active: true
             }
         }, {
-            name: 'SubscribeManagement',
+            name: 'Subscribe',
             meta: {
-                index: `/SubscribeManagement`,
+                index: `/Subscribe`,
                 title: 'DDS主题订阅管理',
                 type: 'menu',
-                active: true
+                active: false
             }
         }
     ]

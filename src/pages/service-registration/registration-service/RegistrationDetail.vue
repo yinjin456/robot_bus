@@ -34,11 +34,13 @@
         name: "Configure",
         data() {
             return {
-                registerCenter:{}
+                registerCenter:null
             };
         },
         methods: {
             goBack(){
+                //不清洗的话会有数据残留 应该是框架的问题
+                this.registerCenter=null;
                 this.$router.go(-1)
             },
             getRegisterCenter(){
