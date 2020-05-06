@@ -19,31 +19,39 @@
                     size="small"
                     height="66vh">
                 <el-table-column
-                        prop="topicId"
-                        label="序号"
+                        prop="subscribeId"
+                        label="订阅者ID"
                         width="100">
                 </el-table-column>
                 <el-table-column
-                        prop="address"
+                        prop="serviceId"
+                        label="服务ID"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="recieveAddress"
                         label="订阅者接收消息地址">
                 </el-table-column>
                 <el-table-column
-                        prop="startdate"
-                        label="订阅日期"
-                        width="180">
+                        prop="subscriberType"
+                        label="订阅类型">
                 </el-table-column>
                 <el-table-column
-                        prop="enddate"
-                        label="取消订阅日期"
-                        width="180">
+                        prop="createDate"
+                        label="订阅日期">
                 </el-table-column>
-                <el-table-column
-                        width="180"
-                        label="状态">
-                    <template slot-scope="scope">
-                        <el-button type="text" @click="Grade(scope.row)" size="small">订阅</el-button>
-                    </template>
-                </el-table-column>
+<!--                <el-table-column-->
+<!--                        prop="enddate"-->
+<!--                        label="取消订阅日期"-->
+<!--                        width="180">-->
+<!--                </el-table-column>-->
+<!--                <el-table-column-->
+<!--                        width="180"-->
+<!--                        label="状态">-->
+<!--                    <template slot-scope="scope">-->
+<!--                        <el-button type="text" @click="Grade(scope.row)" size="small">订阅</el-button>-->
+<!--                    </template>-->
+<!--                </el-table-column>-->
             </el-table>
         </div>
     </div>
@@ -54,6 +62,7 @@
         name: "TopicDetail",
         data () {
             return {
+                tableData:[],
                 topic:null,
                 topicName:null,
                 domainId:null
@@ -69,7 +78,7 @@
                     .get(this.Global.baseUrl2 + '/topic/getSubscribers/' + this.$route.query.topicId)
                     .then(function (response) {
                         console.log(response);
-                        that.topic = response.data
+                        that.tableData = response.data
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -115,7 +124,7 @@
             }
         },
         activated(){
-            // this.getSubscribers();
+            this.getSubscribers();
             this.domainId = this.$route.query.domainId;
             this.topicName = this.$route.query.topicName;
         }

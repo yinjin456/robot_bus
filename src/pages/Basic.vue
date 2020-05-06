@@ -7,16 +7,17 @@
                     <!--<img src="resource/images/LOGO.png" width="50" height="50">-->
                     <p class="top-layout-title">中间件服务总线控制系统</p>
                 </div>
-
-                <div class="top-layout-exit">
+                <div class="top-layout-exit" v-if="username!=null">
                     <el-tooltip class="item"  placement="top-start" effect="light" style="padding:0;margin:0">
                         <div slot="content" class="top-layout-pop">
                             <button>我的信息</button><br>
                             <button>登出账户</button>
                         </div>
-                        <span><i class="iconfont  icon-icon_zhanghao"></i>欢迎您，xxx！</span>
+                        <span><i class="iconfont  icon-icon_zhanghao"></i>欢迎您，{{username}}！</span>
                     </el-tooltip>
-
+                </div>
+                <div v-else class="top-layout-exit" >
+                    <span @click="jumpLogin">暂未登录用户，请登录</span>
                 </div>
             </el-header>
             <!--下部-->
@@ -74,7 +75,8 @@
                 menu: menu,
                 isCollapse: false,
                 screenWidth: document.body.clientWidth,
-                exit:false
+                exit:false,
+                username:null
             };
         },
         watch: {
@@ -106,6 +108,9 @@
             },
             jumphome(){
                 this.$router.push({path:'/Home'})
+            },
+            jumpLogin(){
+                this.$router.replace({path:'/Login'})
             }
         },
         mounted(){
@@ -116,6 +121,7 @@
                     that.screenWidth = window.screenWidth
                 })()
             }
+            this.username = this.Cookie.getJSON('loginInfo').username
         }
     }
 

@@ -3,13 +3,12 @@
         <div class="login-box">
             <h1>Login</h1>
             <div class="text-box">
-                <input type="text" placeholder="用户名" name="" value="" />
+                <input type="text" placeholder="用户名" v-model="username"/>
             </div>
             <div class="text-box">
-                <input type="password" placeholder="密码" name="" value="" />
+                <input type="password" placeholder="密码" v-model="password"/>
             </div>
             <input class="btn" type="button" name="" value="登录" @click="logining"/>
-            tip：当前未接入用户系统，直接登录即可
         </div>
     </div>
 </template>
@@ -17,9 +16,35 @@
 <script>
     export default {
         name: "Login",
+        data(){
+            return{
+                username:null,
+                password:null
+            }
+        },
         methods:{
             logining(){
-                this.$router.push({path:'/Home'})
+                var that = this;
+                this.axios({
+                    url: this.Global.baseUrl3 + '/Robot/UserQueryController/login',
+                    method: 'POST',
+                    params: {
+                        username:this.username,
+                        password:this.password,
+                    },
+                    headers:{'Content-Type': "application/json"}
+                }).then(function (response) {
+                    console.log(response);
+                    if(response.data.result==1){
+                        that.Cookie.set('loginInfo',response.data.data)
+                        that.$router.push({path:'/Home'})
+                    }else{
+                        that.$message.error('登录失败，请检查账号密码是否有误');
+                    }
+                }).catch(function (error) {
+                    that.$message.error('登录失败，请检查网络');
+                    console.log(error);
+                });
             }
         }
     }

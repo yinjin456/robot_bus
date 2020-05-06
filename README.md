@@ -8,7 +8,7 @@
 ### :orange_book:Project Introduce
 基于Vue构建的机器人服务总线的控制台，用于添加、操纵、监控机器人及相关组件、服务等设施。
 
-预览地址：[机器人服务总线控制系统]()
+预览地址：[机器人服务总线控制系统](http://106.13.177.169)
 
 开发人员跳转：[BUILD.md](https://github.com/yinvoke/robot_bus/blob/master/BUILD.md)
 
@@ -42,17 +42,7 @@
 
 [axios github库](https://github.com/axios/axios)
 
-[echarts 官网](https://echarts.baidu.com/)
-
-[jspdf 官网](https://parall.ax/products/jspdf)
-
-[html2canvas 官网](https://html2canvas.hertzen.com/)
-
-[screenfull github库](https://github.com/sindresorhus/screenfull.js/)
-
-[qs 非官方文档](https://www.npmjs.com/package/qs)
-
-[js-cookie 教程](https://www.runoob.com/js/js-cookies.html)
+[js-cookie](https://www.npmjs.com/package/js-cookie)
 
 
 

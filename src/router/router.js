@@ -6,7 +6,6 @@ const Basic = r => require.ensure([], () => r(require('@/pages/Basic')), 'Basic'
 const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'Home')
 const Building = r => require.ensure([], () => r(require('@/pages/Building')), 'Building')
 const BusManage = r => require.ensure([], () => r(require('@/pages/service-bus/BusManage')), 'BusManage')
-const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
 const Robots = r => require.ensure([], () => r(require('@/pages/service-registration/robot/Robots')), 'Robots')
 const RobotDetail = r => require.ensure([], () => r(require('@/pages/service-registration/robot/RobotDetail')), 'RobotDetail')
 const Registration = r => require.ensure([], () => r(require('@/pages/service-registration/registration-service/Registration')), 'Registration')
@@ -16,6 +15,8 @@ const ServiceComponentDetail = r => require.ensure([], () => r(require('@/pages/
 const Subscribe = r => require.ensure([], () => r(require('@/pages/dds/subscribe/Subscribe')), 'Subscribe')
 const Topic = r => require.ensure([], () => r(require('@/pages/dds/topic/Topic')), 'Topic')
 const TopicDetail = r => require.ensure([], () => r(require('@/pages/dds/topic/TopicDetail')), 'TopicDetail')
+const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
+const UserDetail = r => require.ensure([], () => r(require('@/pages/user/UserDetail')), 'UserDetail')
 
 
 export default [{
@@ -62,6 +63,12 @@ export default [{
                     name:'/UserManage',
                     path:'/UserManage',
                     component:UserManage
+                },
+                //用户列表
+                {
+                    name:'/UserDetail',
+                    path:'/UserDetail',
+                    component:UserDetail
                 },
                 //服务组件注册管理
                 {

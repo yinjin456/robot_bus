@@ -6,6 +6,7 @@
 - WebStorm / VS code
 - npm
 - Vue Devtools
+- git & github
 
 ### :globe_with_meridians: 开发环境
 
@@ -20,6 +21,7 @@ npm i element-ui -S
 npm install --save vue-router
 npm install --save nprogress
 npm install axios
+npm install js-cookie --save
 npm install
 ```
 
@@ -27,11 +29,22 @@ npm install
 
 ## 二、开发
 
-### :book:  目录说明
+### :book:  项目目录说明
+---src<br>
+api：api接口<br>
+assets：资源文件<br>
+components：自定义组件<br>
+config：页面配置文件（目前只有菜单配置）<br>
+pages：页面<br>
+router：路由配置<br>
+App.vue<br>
+main.js：全局配置<br>
 
 
 
 ### :walking:  命名原则
+
+文件夹命名：拼接模式
 
 文件命名：在驼峰原则基础上将首字母大写
 
