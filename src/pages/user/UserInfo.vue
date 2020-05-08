@@ -1,38 +1,11 @@
 <template>
     <div>
-        <div class="title">
-            <el-page-header @back="goBack" content="用户信息详情"></el-page-header>
-        </div>
         <div class="content">
             <div class="content-id-box">
                 <div class="content-id">
                     用户id : {{user.userId}}
                 </div>
             </div>
-<!--            <el-row :gutter="40">-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.createUserId" disabled>-->
-<!--                        <template slot="prepend">创建者id</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.createDate" disabled>-->
-<!--                        <template slot="prepend">创建日期</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--            </el-row>-->
-<!--            <el-row :gutter="40">-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.valid" disabled>-->
-<!--                        <template slot="prepend">账号状态</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.roleId" disabled>-->
-<!--                        <template slot="prepend">角色id</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--            </el-row>-->
             <el-row :gutter="30">
                 <el-col :span="12">
                     <el-input placeholder="请输入内容" v-model="user.username">
@@ -64,17 +37,16 @@
                     </el-input>
                 </el-col>
             </el-row>
-<!--            <el-row class="button-box">-->
-<!--                <el-button type="warning" class="ebutton" @click="updateUser">修改</el-button>-->
-<!--&lt;!&ndash;                <el-button type="danger" class="ebutton del" @click="deleteUser">冻结账号</el-button>&ndash;&gt;-->
-<!--            </el-row>-->
+            <el-row class="button-box">
+                <el-button type="warning" class="ebutton" @click="updateUser">修改</el-button>
+            </el-row>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "UserDetail",
+        name: "UserInfo",
         data () {
             return {
                 user: {
@@ -94,26 +66,6 @@
             }
         },
         methods: {
-            goBack(){
-                this.$router.go(-1)
-            },
-            getUser(){
-                var that = this;
-                this.axios
-                    .get(this.Global.baseUrl3 + '/Robot/UserQueryController/getUser', {
-                        params: {
-                            userId:that.$route.query.userId,
-                            operationUser:'001'
-                        }
-                    })
-                    .then(function (response) {
-                        console.log(response);
-                        that.user = response.data.data
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
             updateUser(){
                 var that = this;
                 this.axios({
@@ -143,27 +95,10 @@
                     that.$message.error('修改失败');
                     console.log(error);
                 });
-            },
-            deleteUser(){
-                this.$confirm('确认要删除该服务组件吗', '删除确认', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
             }
         },
         activated(){
-            this.getUser()
+            this.user = this.Cookie.getJSON('loginInfo')
         }
     }
 </script>

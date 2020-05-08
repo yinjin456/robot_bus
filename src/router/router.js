@@ -17,6 +17,7 @@ const Topic = r => require.ensure([], () => r(require('@/pages/dds/topic/Topic')
 const TopicDetail = r => require.ensure([], () => r(require('@/pages/dds/topic/TopicDetail')), 'TopicDetail')
 const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
 const UserDetail = r => require.ensure([], () => r(require('@/pages/user/UserDetail')), 'UserDetail')
+const UserInfo = r => require.ensure([], () => r(require('@/pages/user/UserInfo')), 'UserInfo')
 
 
 export default [{
@@ -64,11 +65,17 @@ export default [{
                     path:'/UserManage',
                     component:UserManage
                 },
-                //用户列表
+                //用户列表详情
                 {
                     name:'/UserDetail',
                     path:'/UserDetail',
                     component:UserDetail
+                },
+                //用户信息
+                {
+                    name:'/UserInfo',
+                    path:'/UserInfo',
+                    component:UserInfo
                 },
                 //服务组件注册管理
                 {

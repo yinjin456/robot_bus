@@ -53,7 +53,7 @@
                             @size-change="handleSizeChange"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage"
-                            :page-sizes="[100, 200, 300, 400]"
+                            :page-sizes="[20, 50, 100]"
                             :page-size="pageSize"
                             layout="total, sizes, prev, pager, next, jumper"
                             :total="total">
@@ -97,16 +97,17 @@
             getList() {
                 var that = this;
                 this.axios
-                    .get(this.Global.baseUrl2 + '/topic/getPage/' + this.currentPage, {
+                    .get(this.Global.baseUrl2 + '/topic/get/selective', {
                         params: {
-                            size:this.pageSize
+                            currentPage:this.currentPage,
+                            size:this.pageSize,
                         },
                     })
                     .then(function (response) {
                         console.log(response);
                         that.tableData = response.data.datas;
-                        that.total = response.data.data.totalCount;
-                        that.currentPage = response.data.data.currentPage;
+                        that.total = response.data.totalCount;
+                        that.currentPage = response.data.currentPage;
                     })
                     .catch(function (error) {
                         console.log(error);

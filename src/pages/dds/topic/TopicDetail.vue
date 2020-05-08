@@ -17,7 +17,7 @@
                     stripe
                     style="width: 100%"
                     size="small"
-                    height="66vh">
+                    height="61vh">
                 <el-table-column
                         prop="subscribeId"
                         label="订阅者ID"
@@ -53,6 +53,16 @@
 <!--                    </template>-->
 <!--                </el-table-column>-->
             </el-table>
+            <div style="margin: 8px 0"></div>
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[20, 50, 100]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -65,20 +75,42 @@
                 tableData:[],
                 topic:null,
                 topicName:null,
-                domainId:null
+                domainId:null,
+                pageSize: 20,
+                currentPage: 1,
+                total:0,
             }
         },
         methods: {
+            // 每页的条数改变
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.currentPage = 1;
+                this.request();
+            },
+            // 更改页面
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                this.request();
+            },
             goBack(){
                 this.$router.go(-1)
             },
             getSubscribers(){
                 var that = this;
                 this.axios
-                    .get(this.Global.baseUrl2 + '/topic/getSubscribers/' + this.$route.query.topicId)
+                    .get(this.Global.baseUrl2 + '/subscriber/get/selective',{
+                        params:{
+                            currentPage:this.currentPage,
+                            size:this.pageSize,
+                            topicId:this.$route.query.topicId
+                        }
+                    })
                     .then(function (response) {
                         console.log(response);
-                        that.tableData = response.data
+                        that.tableData = response.data.datas;
+                        that.total = response.data.totalCount;
+                        that.currentPage = response.data.currentPage;
                     })
                     .catch(function (error) {
                         console.log(error);

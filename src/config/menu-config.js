@@ -112,7 +112,7 @@ export default [{
                 index: `/Building`,
                 title: '角色管理',
                 type: 'menu',
-                active: true
+                active: false
             }
         }
     ]

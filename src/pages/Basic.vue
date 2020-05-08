@@ -10,8 +10,8 @@
                 <div class="top-layout-exit" v-if="username!=null">
                     <el-tooltip class="item"  placement="top-start" effect="light" style="padding:0;margin:0">
                         <div slot="content" class="top-layout-pop">
-                            <button>我的信息</button><br>
-                            <button>登出账户</button>
+                            <button @click="jumpUserInfo">我的信息</button><br>
+                            <button @click="exitIt">登出账户</button>
                         </div>
                         <span><i class="iconfont  icon-icon_zhanghao"></i>欢迎您，{{username}}！</span>
                     </el-tooltip>
@@ -111,9 +111,21 @@
             },
             jumpLogin(){
                 this.$router.replace({path:'/Login'})
+            },
+            jumpUserInfo(){
+                this.$router.push({path:'/UserInfo'})
+            },
+            exitIt(){
+                this.$router.replace({path:'/Login'})
+                this.Cookie.remove('loginInfo')
             }
         },
         mounted(){
+            if(this.Cookie.getJSON('loginInfo')){
+                this.username = this.Cookie.getJSON('loginInfo').username
+            }else{
+                this.$router.replace({path:'/Login'})
+            }
             const that = this
             window.onresize = () => {
                 return (() => {
@@ -121,7 +133,7 @@
                     that.screenWidth = window.screenWidth
                 })()
             }
-            this.username = this.Cookie.getJSON('loginInfo').username
+
         }
     }
 
