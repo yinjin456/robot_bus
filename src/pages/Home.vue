@@ -1,8 +1,7 @@
 <template>
     <div class="main bg-white app-main__container">
-<!--        <img src="resource/images/yell.gif" height="450" />-->
+        <img src="../assets/image/middle.png" height="450" />
         <div class="tip">欢迎使用机器人服务总线管理系统!</div>
-        <!-- <button @click="get()">time:{{time}}</button> -->
         <div class="time">{{date}}</div>
     </div>
 </template>
@@ -47,4 +46,5 @@
         font-weight: bolder;
         font-size: 2em;
     }
+
 </style>

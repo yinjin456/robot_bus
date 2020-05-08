@@ -14,8 +14,9 @@
                 <input type="password" placeholder="密码" v-model="password"/>
             </div>
             <div v-loading="loading" class="btn" ><input type="button" name="" value="登录" @click="logining"/></div>
-
         </div>
+        <div class="corner">©2020 Middleware-project</div>
+        <div class="edition">v Alpha 0.1.0</div>
     </div>
 </template>
 
@@ -31,31 +32,49 @@
         },
         methods:{
             logining(){
-                var that = this;
-                this.loading = true;
-                this.axios({
-                    url: this.Global.baseUrl3 + '/Robot/UserQueryController/login',
-                    method: 'POST',
-                    params: {
-                        username:this.username,
-                        password:this.password,
-                    },
-                    headers:{'Content-Type': "application/json"}
-                }).then(function (response) {
-                    console.log(response);
-                    if(response.data.result==1){
-                        that.Cookie.set('loginInfo',response.data.data)
-                        that.$router.push({path:'/Home'})
-                    }else{
-                        that.$message.error('登录失败，请检查账号密码是否有误');
-                    }
-                    that.loading = false;
-                }).catch(function (error) {
-                    that.$message.error('登录失败，请检查网络');
-                    console.log(error);
-                    that.loading = false;
+                if(this.username=="" || this.username==null){
+                    this.$message.error('账号不能为空，请输入账号');
+                }else if(this.password=="" || this.password==null){
+                    this.$message.error('密码不能为空，请输入密码');
+                }else{
+                    var that = this;
+                    this.loading = true;
+                    this.axios({
+                        url: this.Global.baseUrl3 + '/Robot/UserQueryController/login',
+                        method: 'POST',
+                        params: {
+                            username:this.username,
+                            password:this.password,
+                        },
+                        headers:{'Content-Type': "application/json"}
+                    }).then(function (response) {
+                        console.log(response);
+                        if(response.data.result==1){
+                            that.Cookie.set('loginInfo',response.data.data)
+                            that.$router.push({path:'/Home'})
+                        }else{
+                            that.$message.error('登录失败，请检查账号密码是否有误');
+                        }
+                        that.loading = false;
+                    }).catch(function (error) {
+                        that.$message.error('登录失败，请检查网络');
+                        console.log(error);
+                        that.loading = false;
+                    });
+                }
+
+            },
+            tips() {
+                this.$notify({
+                    title: '登录提示',
+                    message: ('开发版本可采用 账户名：super 密码：123 进行登录'),
+                    position: 'bottom-right',
+                    duration: 3000
                 });
-            }
+            },
+        },
+        mounted(){
+            this.tips()
         }
     }
 </script>
@@ -63,7 +82,7 @@
 <style scoped>
     .title{
         position: absolute;
-        left: 5%;
+        left: 4%;
         top: 5%;
         font-size: 2.8em;
         color: #3F85ED;
@@ -76,14 +95,14 @@
     }
     .login img{
         position: absolute;
-        left: 8%;
+        left: 7%;
         top: 20%;
     }
     .login-box{
         width: 280px;
         position: absolute;
         top: 45%;
-        left: 74%;
+        left: 76%;
         transform: translate(-50%,-50%);
         color: black;
     }
@@ -139,5 +158,20 @@
         to {
             background-color: transparent
         }
+    }
+    .corner{
+        position: absolute;
+        bottom:10px;
+        left: 30px;
+        color: #686868;
+        font-size: 0.7em;
+    }
+    .edition{
+        position: absolute;
+        top:10px;
+        right: 20px;
+        color: #bdbdbd;
+        font-size: 0.8em;
+        font-weight: bolder;
     }
 </style>
