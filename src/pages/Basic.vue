@@ -11,6 +11,7 @@
                     <el-tooltip class="item"  placement="top-start" effect="light" style="padding:0;margin:0">
                         <div slot="content" class="top-layout-pop">
                             <button @click="jumpUserInfo">我的信息</button><br>
+                            <button @click="jumpPassword">修改密码</button><br>
                             <button @click="exitIt">登出账户</button>
                         </div>
                         <span><i class="iconfont  icon-icon_zhanghao"></i>欢迎您，{{username}}！</span>
@@ -115,9 +116,13 @@
             jumpUserInfo(){
                 this.$router.push({path:'/UserInfo'})
             },
+            jumpPassword(){
+                this.$router.push({path:'/PasswordInfo'})
+            },
             exitIt(){
                 this.$router.replace({path:'/Login'})
                 this.Cookie.remove('loginInfo')
+                this.Cookie.remove('pass')
             }
         },
         mounted(){
@@ -179,7 +184,7 @@
         color: white;
     }
     .top-layout-pop {
-        height: 70px;
+        height: 100px;
         width: 110px;
         padding: 0;
         margin: 0;

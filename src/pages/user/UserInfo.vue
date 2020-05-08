@@ -1,46 +1,45 @@
 <template>
-    <div>
-        <div class="content">
-            <div class="content-id-box">
-                <div class="content-id">
-                    用户id : {{user.userId}}
-                </div>
-            </div>
-            <el-row :gutter="30">
+    <div class="content">
+        <el-form label-position="left" label-width="110px" style="margin-top:15px">
+            <el-row :gutter="60">
                 <el-col :span="12">
-                    <el-input placeholder="请输入内容" v-model="user.username">
-                        <template slot="prepend">用户名</template>
-                    </el-input>
-                </el-col>
-                <el-col :span="12">
-                    <el-input placeholder="请输入内容" v-model="user.password">
-                        <template slot="prepend">密码</template>
-                    </el-input>
+                    <el-form-item label="user id：">
+                        <el-input v-model="user.userId" disabled></el-input>
+                    </el-form-item>
                 </el-col>
             </el-row>
-            <el-row :gutter="40">
+            <el-row :gutter="60">
                 <el-col :span="12">
-                    <el-input placeholder="请输入内容" v-model="user.realname" >
-                        <template slot="prepend">姓名</template>
-                    </el-input>
-                </el-col>
-                <el-col :span="12">
-                    <el-input placeholder="请输入内容" v-model="user.telephone">
-                        <template slot="prepend">电话电话</template>
-                    </el-input>
+                    <el-form-item label="用户名：">
+                        <el-input v-model="user.username"></el-input>
+                    </el-form-item>
                 </el-col>
             </el-row>
-            <el-row :gutter="40">
+            <el-row :gutter="60">
                 <el-col :span="12">
-                    <el-input placeholder="请输入内容" v-model="user.email">
-                        <template slot="prepend">邮箱</template>
-                    </el-input>
+                    <el-form-item label="姓名：">
+                        <el-input v-model="user.realname"></el-input>
+                    </el-form-item>
                 </el-col>
             </el-row>
-            <el-row class="button-box">
-                <el-button type="warning" class="ebutton" @click="updateUser">修改</el-button>
+            <el-row :gutter="60">
+                <el-col :span="12">
+                    <el-form-item label="联系方式：">
+                        <el-input v-model="user.telephone"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
-        </div>
+            <el-row :gutter="60">
+                <el-col :span="12">
+                    <el-form-item label="邮箱：">
+                        <el-input v-model="user.email"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
+        <el-row class="button-box">
+            <el-button type="primary" class="ebutton" @click="modifyUser2">确认修改</el-button>
+        </el-row>
     </div>
 </template>
 
@@ -62,37 +61,42 @@
                     "createDate": null,
                     "modifyUserId": null,
                     "modifyDate": null,
+                    "flag": null,
+                    "token": null,
+                    "privilegeTList": []
                 }
             }
         },
         methods: {
-            updateUser(){
+            modifyUser2(){
                 var that = this;
                 this.axios({
-                    url: this.Global.baseUrl + '/updateUser',
+                    url: this.Global.baseUrl3 + '/Robot/UserController/modifyUser2',
                     method: 'POST',
                     params: {
-                        routingTo:that.User.routingTo,
-                        routingFrom:that.User.routingFrom,
-                        minorVersion:that.User.minorVersion,
-                        majorVersion:that.User.majorVersion,
-                        wsdlURL:that.User.wsdlURL,
-                        targetNamespace:that.User.targetNamespace,
-                        portNumber:that.User.portNumber,
-                        serviceName:that.User.serviceName,
-                        bindingAddress:that.User.bindingAddress,
-                        serviceType:that.User.serviceType,
-                        serviceId:that.User.serviceId
+                        operationUser:this.Cookie.getJSON('loginInfo').userId,
+                        username:this.user.username,
+                        realname:this.user.realname,
+                        telephone:this.user.telephone,
+                        email:this.user.email,
                     },
                     headers:{'Content-Type': "application/json"}
                 }).then(function (response) {
-                    console.log(response);
-                    that.$message({
-                        message: '修改成功',
-                        type: 'success'
-                    });
+                    if(response.data.result==1){
+                        that.$message({
+                            message: '修改成功',
+                            type: 'success'
+                        });
+                        that.Cookie.remove('loginInfo');
+                        that.Cookie.set('loginInfo',that.user)
+                    }else {
+                        that.$message({
+                            message: '修改失败' + response.data.message,
+                            type: 'success'
+                        });
+                    }
                 }).catch(function (error) {
-                    that.$message.error('修改失败');
+                    that.$message.error('网络错误');
                     console.log(error);
                 });
             }
@@ -104,31 +108,11 @@
 </script>
 
 <style scoped>
-    .page{
-        width: 100%;
-        height: 100%;
-    }
-    .title{
-        padding: 8px 0;
-        font-weight: bolder;
-        font-size: 1.4em;
-        border-bottom: solid 2px #3F85ED;
-    }
     .content{
-        padding: 15px 0;
-        height: 70vh;
-    }
-    .content-id{
-        border-radius: 4px;
-        margin: 5px 0 25px 0;
-        font-weight: bolder;
-        color: #767676;
+        padding: 30px;
     }
     .el-row {
-        margin-bottom: 20px;
-        &:last-child {
-            margin-bottom: 0;
-        }
+        margin-bottom: 5px;
     }
     .button-box{
         margin-top: 50px;
@@ -137,19 +121,5 @@
     }
     .ebutton{
         width: 130px;
-    }
-    .content{
-        padding: 8px 0 15px 0;
-        height: 70vh;
-    }
-    .content-id-box{
-        margin-bottom: 15px;
-    }
-    .content-id{
-        margin: 10px 5px;
-        font-size: 0.9em;
-        font-weight: bolder;
-        color: #5a5a5a;
-        display: block;
     }
 </style>

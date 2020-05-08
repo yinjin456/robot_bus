@@ -9,30 +9,42 @@
                     用户id : {{user.userId}}
                 </div>
             </div>
-<!--            <el-row :gutter="40">-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.createUserId" disabled>-->
-<!--                        <template slot="prepend">创建者id</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.createDate" disabled>-->
-<!--                        <template slot="prepend">创建日期</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--            </el-row>-->
-<!--            <el-row :gutter="40">-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.valid" disabled>-->
-<!--                        <template slot="prepend">账号状态</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--                <el-col :span="12">-->
-<!--                    <el-input placeholder="请输入内容" v-model="user.roleId" disabled>-->
-<!--                        <template slot="prepend">角色id</template>-->
-<!--                    </el-input>-->
-<!--                </el-col>-->
-<!--            </el-row>-->
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.createUserId" disabled>
+                        <template slot="prepend">创建者id</template>
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.createDate" disabled>
+                        <template slot="prepend">创建日期</template>
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.modifyUserId" disabled>
+                        <template slot="prepend">最近一次修改人id</template>
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.modifyDate" disabled>
+                        <template slot="prepend">最近一次修改日期</template>
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.valid" disabled>
+                        <template slot="prepend">账号状态</template>
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-input placeholder="请输入内容" v-model="user.roleId" disabled>
+                        <template slot="prepend">角色id</template>
+                    </el-input>
+                </el-col>
+            </el-row>
             <el-row :gutter="30">
                 <el-col :span="12">
                     <el-input placeholder="请输入内容" v-model="user.username">
@@ -109,38 +121,39 @@
                     .then(function (response) {
                         console.log(response);
                         that.user = response.data.data
+                        that.user.password=null
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
-            updateUser(){
+            modifyUser2(){
                 var that = this;
                 this.axios({
-                    url: this.Global.baseUrl + '/updateUser',
+                    url: this.Global.baseUrl3 + '/Robot/UserController/modifyUser2',
                     method: 'POST',
                     params: {
-                        routingTo:that.User.routingTo,
-                        routingFrom:that.User.routingFrom,
-                        minorVersion:that.User.minorVersion,
-                        majorVersion:that.User.majorVersion,
-                        wsdlURL:that.User.wsdlURL,
-                        targetNamespace:that.User.targetNamespace,
-                        portNumber:that.User.portNumber,
-                        serviceName:that.User.serviceName,
-                        bindingAddress:that.User.bindingAddress,
-                        serviceType:that.User.serviceType,
-                        serviceId:that.User.serviceId
+                        operationUser:this.Cookie.getJSON('loginInfo').userId,
+                        password:this.passwords.newPassword
                     },
                     headers:{'Content-Type': "application/json"}
                 }).then(function (response) {
-                    console.log(response);
-                    that.$message({
-                        message: '修改成功',
-                        type: 'success'
-                    });
+                    if(response.data.result==1){
+                        that.$message({
+                            message: '修改成功,请重新登录！',
+                            type: 'success'
+                        });
+                        that.$router.replace({path:'/Login'})
+                        that.Cookie.remove('loginInfo')
+                        that.Cookie.remove('pass')
+                    }else {
+                        that.$message({
+                            message: '修改失败' + response.data.message,
+                            type: 'success'
+                        });
+                    }
                 }).catch(function (error) {
-                    that.$message.error('修改失败');
+                    that.$message.error('网络错误');
                     console.log(error);
                 });
             },

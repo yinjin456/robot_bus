@@ -44,6 +44,8 @@
 
 [js-cookie](https://www.npmjs.com/package/js-cookie)
 
+[js-base64](https://github.com/dankogai/js-base64)
+
 
 
 <br>

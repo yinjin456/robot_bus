@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import { encryptString } from '@/utils/base64'
     export default {
         name: "Login",
         data(){
@@ -32,12 +33,13 @@
         },
         methods:{
             logining(){
+                var that = this;
                 if(this.username=="" || this.username==null){
                     this.$message.error('账号不能为空，请输入账号');
                 }else if(this.password=="" || this.password==null){
                     this.$message.error('密码不能为空，请输入密码');
                 }else{
-                    var that = this;
+
                     this.loading = true;
                     this.axios({
                         url: this.Global.baseUrl3 + '/Robot/UserQueryController/login',
@@ -50,6 +52,7 @@
                     }).then(function (response) {
                         console.log(response);
                         if(response.data.result==1){
+                            that.Cookie.set('pass',encryptString(that.password))
                             that.Cookie.set('loginInfo',response.data.data)
                             that.$router.push({path:'/Home'})
                         }else{
@@ -69,7 +72,7 @@
                     title: '登录提示',
                     message: ('开发版本可采用 账户名：super 密码：123 进行登录'),
                     position: 'bottom-right',
-                    duration: 3000
+                    duration: 3500
                 });
             },
         },

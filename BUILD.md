@@ -22,6 +22,7 @@ npm install --save vue-router
 npm install --save nprogress
 npm install axios
 npm install js-cookie --save
+npm install --save js-base64
 npm install
 ```
 
