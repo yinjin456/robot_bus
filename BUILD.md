@@ -44,6 +44,11 @@ App.vue<br>
 main.js：全局配置<br>
 
 
+### :walking:  开发流程
+页面：创建vue页面
+在router.js中注册，配置，然后在需要的地方引入即可
+
+
 
 ### :walking:  命名原则
 
@@ -66,7 +71,8 @@ npm run serve
 ```
 
 ### :flags: 压缩编译 （产品用）
-运行前将vue.config.js文件内容进行解注释
+运行前将vue.config.js文件内容进行解注释，此时构建将会生成静态网页，然后直接拖放到服务器上就可以运行。
+另外一种部署方法是在服务器上运行一份同样的vue框架（需要在服务器上安装vue、nodejs、还有其他用过的库之类的环境）
 ```
 npm run build
 ```
