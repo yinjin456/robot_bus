@@ -24,7 +24,7 @@
             </el-row>
         </el-form>
         <el-row class="button-box">
-            <el-button type="primary" class="ebutton" @click="modifyUser2">确认修改</el-button>
+            <el-button type="primary" class="ebutton" @click="modifyPassword">确认修改</el-button>
         </el-row>
     </div>
 </template>
@@ -87,15 +87,16 @@
             }
         },
         methods:{
-            modifyUser2(){
+            modifyPassword(){
                 if(this.isok1 == true && this.isok2 ==true && this.isok3==true){
                     var that = this;
                     this.axios({
-                        url: this.Global.baseUrl3 + '/Robot/UserController/modifyUser2',
+                        url: this.Global.baseUrl3 + '/Robot/UserController/modifyPassword',
                         method: 'POST',
                         params: {
                             operationUser:this.Cookie.getJSON('loginInfo').userId,
-                            password:this.passwords.newPassword
+                            oldPassword:this.passwords.nowPassword,
+                            newPassword:this.passwords.newPassword
                         },
                         headers:{'Content-Type': "application/json"}
                     }).then(function (response) {
@@ -122,8 +123,6 @@
                 }
 
             }
-        },
-        mounted(){
         }
     }
 </script>

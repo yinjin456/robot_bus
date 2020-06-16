@@ -12,13 +12,20 @@ const Registration = r => require.ensure([], () => r(require('@/pages/service-re
 const RegistrationDetail = r => require.ensure([], () => r(require('@/pages/service-registration/registration-service/RegistrationDetail')), 'RegistrationDetail')
 const ServiceComponents = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponents')), 'ServiceComponents')
 const ServiceComponentDetail = r => require.ensure([], () => r(require('@/pages/service-registration/service-component/ServiceComponentDetail')), 'ServiceComponentDetail')
-const Subscribe = r => require.ensure([], () => r(require('@/pages/dds/subscribe/Subscribe')), 'Subscribe')
+const XsdFile = r => require.ensure([], () => r(require('@/pages/service-registration/xsd-file/XsdFile')), 'XsdFile')
+const XsdFileDetail = r => require.ensure([], () => r(require('@/pages/service-registration/xsd-file/XsdFileDetail')), 'XsdFileDetail')
 const Topic = r => require.ensure([], () => r(require('@/pages/dds/topic/Topic')), 'Topic')
 const TopicDetail = r => require.ensure([], () => r(require('@/pages/dds/topic/TopicDetail')), 'TopicDetail')
-const UserManage = r => require.ensure([], () => r(require('@/pages/user/UserManage')), 'UserManage')
-const UserDetail = r => require.ensure([], () => r(require('@/pages/user/UserDetail')), 'UserDetail')
-const UserInfo = r => require.ensure([], () => r(require('@/pages/user/UserInfo')), 'UserInfo')
-const PasswordInfo = r => require.ensure([], () => r(require('@/pages/user/PasswordInfo')), 'PasswordInfo')
+const UserManage = r => require.ensure([], () => r(require('@/pages/user-center/user/UserManage')), 'UserManage')
+const UserDetail = r => require.ensure([], () => r(require('@/pages/user-center/user/UserDetail')), 'UserDetail')
+const RoleManage = r => require.ensure([], () => r(require('@/pages/user-center/role/RoleManage')), 'RoleManage')
+const RoleDetail = r => require.ensure([], () => r(require('@/pages/user-center/role/RoleDetail')), 'RoleDetail')
+const PrivilegeManage = r => require.ensure([], () => r(require('@/pages/user-center/privilege/PrivilegeManage')), 'PrivilegeManage')
+const PrivilegeDetail = r => require.ensure([], () => r(require('@/pages/user-center/privilege/PrivilegeDetail')), 'PrivilegeDetail')
+const CreateUser = r => require.ensure([], () => r(require('@/pages/user-center/CreateUser')), 'CreateUser')
+const UserInfo = r => require.ensure([], () => r(require('@/pages/user-center/UserInfo')), 'UserInfo')
+const PasswordInfo = r => require.ensure([], () => r(require('@/pages/user-center/PasswordInfo')), 'PasswordInfo')
+
 
 
 export default [{
@@ -84,6 +91,36 @@ export default [{
                     path:'/PasswordInfo',
                     component:PasswordInfo
                 },
+                //角色管理
+                {
+                    name:'/RoleManage',
+                    path:'/RoleManage',
+                    component:RoleManage
+                },
+                //角色管理
+                {
+                    name:'/RoleDetail',
+                    path:'/RoleDetail',
+                    component:RoleDetail
+                },
+                //权限管理
+                {
+                    name:'/PrivilegeManage',
+                    path:'/PrivilegeManage',
+                    component:PrivilegeManage
+                },
+                //权限详情
+                {
+                    name:'/PrivilegeDetail',
+                    path:'/PrivilegeDetail',
+                    component:PrivilegeDetail
+                },
+                //创建用户
+                {
+                    name:'/CreateUser',
+                    path:'/CreateUser',
+                    component:CreateUser
+                },
                 //服务组件注册管理
                 {
                     name:'/ServiceComponents',
@@ -95,6 +132,18 @@ export default [{
                     name:'/ServiceComponentDetail',
                     path:'/ServiceComponentDetail',
                     component:ServiceComponentDetail
+                },
+                //XsdFile
+                {
+                    name:'/XsdFile',
+                    path:'/XsdFile',
+                    component:XsdFile
+                },
+                //XsdFileDetail
+                {
+                    name:'/XsdFileDetail',
+                    path:'/XsdFileDetail',
+                    component:XsdFileDetail
                 },
                 //机器人注册管理
                 {
@@ -132,12 +181,6 @@ export default [{
                     path:'/TopicDetail',
                     component:TopicDetail
                 },
-                //DDS主题订阅管理
-                {
-                    name:'/Subscribe',
-                    path:'/Subscribe',
-                    component:Subscribe
-                }
 
             ]
         }

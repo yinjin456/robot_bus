@@ -102,6 +102,7 @@
                     "createDate": null,
                     "modifyUserId": null,
                     "modifyDate": null,
+                    "privilegeTList": []
                 }
             }
         },
@@ -115,7 +116,7 @@
                     .get(this.Global.baseUrl3 + '/Robot/UserQueryController/getUser', {
                         params: {
                             userId:that.$route.query.userId,
-                            operationUser:'001'
+                            operationUser:this.Cookie.getJSON('loginInfo').userId
                         }
                     })
                     .then(function (response) {

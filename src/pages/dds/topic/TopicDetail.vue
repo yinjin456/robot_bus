@@ -20,13 +20,11 @@
                     height="61vh">
                 <el-table-column
                         prop="subscribeId"
-                        label="订阅者ID"
-                        width="100">
+                        label="订阅者ID">
                 </el-table-column>
                 <el-table-column
                         prop="serviceId"
-                        label="服务ID"
-                        width="100">
+                        label="服务ID">
                 </el-table-column>
                 <el-table-column
                         prop="recieveAddress"
@@ -45,13 +43,13 @@
 <!--                        label="取消订阅日期"-->
 <!--                        width="180">-->
 <!--                </el-table-column>-->
-<!--                <el-table-column-->
-<!--                        width="180"-->
-<!--                        label="状态">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-button type="text" @click="Grade(scope.row)" size="small">订阅</el-button>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
+                <el-table-column
+                        width="100"
+                        label="状态">
+                    <template slot-scope="scope">
+                        <el-button type="text" @click="stopService(scope.$index, tableData)" size="small">停止</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <div style="margin: 8px 0"></div>
             <el-pagination
@@ -116,41 +114,49 @@
                         console.log(error);
                     });
             },
-            updateTopic(){
+            stopService(index, rows){
+                console.log(rows[index].serviceId)
                 var that = this;
-                this.axios({
-                    url: this.Global.baseUrl + '/updateTopic',
-                    method: 'POST',
-                    params: {
-                        routingTo:that.Topic.routingTo,
-                        routingFrom:that.Topic.routingFrom
-                    },
-                    headers:{'Content-Type': "application/json"}
-                }).then(function (response) {
-                    console.log(response);
-                    that.$message({
-                        message: '修改成功',
-                        type: 'success'
-                    });
-                }).catch(function (error) {
-                    that.$message.error('修改失败');
-                    console.log(error);
-                });
-            },
-            deleteTopic(){
-                this.$confirm('确认要删除该服务组件吗', '删除确认', {
+                this.$confirm('确认要退订该订阅吗', '退订确认', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
+                    this.axios({
+                        method: 'post',
+                        url: this.Global.baseUrl2 + '/dds/end',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        params: {
+                            serviceId:rows[index].serviceId
+                        }
+                        })
+                        .then(function (response) {
+                            console.log(response);
+                            if(response.data=="success"){
+                                that.$message({
+                                    type: 'success',
+                                    message: '退订成功!'
+                                });
+                            }else if(response.data=="fail"){
+                                that.$message({
+                                    type: 'info',
+                                    message: '退订失败!'
+                                });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            that.$message({
+                                type: 'info',
+                                message: '退订失败!'
+                            });
+                        });
                 }).catch(() => {
                     this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '已取消退订'
                     });
                 });
             }

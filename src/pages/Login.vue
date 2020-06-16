@@ -72,7 +72,7 @@
                     title: '登录提示',
                     message: ('开发版本可采用 账户名：super 密码：123 进行登录'),
                     position: 'bottom-right',
-                    duration: 3500
+                    duration: 6000
                 });
             },
         },

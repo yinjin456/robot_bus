@@ -10,7 +10,8 @@
 
 ### :globe_with_meridians: 开发环境
 
-- 自动安装（如果自动安装失败请手动安装）
+- 自动安装（如果自动安装失败请按照以下顺序手动安装进行排查）
+注：多数安装失败都是由于源不稳定导致，可以使用淘宝镜像进行下载
 ```
 npm install
 ```
@@ -23,6 +24,7 @@ npm install --save nprogress
 npm install axios
 npm install js-cookie --save
 npm install --save js-base64
+npm install --save vue-clipboard2
 npm install
 ```
 
@@ -30,8 +32,8 @@ npm install
 
 ## 二、开发
 
-### :book:  项目目录说明
----src<br>
+### :book:  项目目录（src）说明
+
 api：api接口<br>
 assets：资源文件<br>
 components：自定义组件<br>

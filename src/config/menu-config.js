@@ -41,12 +41,12 @@ export default [{
                 active: true
             }
         }, {
-            name: 'papersList',
+            name: 'XsdFile',
             meta: {
-                index: `/PapersList`,
-                title: '服务元数据管理',
+                index: `/XsdFile`,
+                title: 'XSD文件管理',
                 type: 'menu',
-                active: false
+                active: true
             }
         }, {
             name: 'Robots',
@@ -107,12 +107,28 @@ export default [{
                 active: true
             }
         }, {
-            name: 'Building',
+            name: 'RoleManage',
             meta: {
-                index: `/Building`,
+                index: `/RoleManage`,
                 title: '角色管理',
                 type: 'menu',
-                active: false
+                active: true
+            }
+        }, {
+            name: 'PrivilegeManage',
+            meta: {
+                index: `/PrivilegeManage`,
+                title: '权限管理',
+                type: 'menu',
+                active: true
+            }
+        }, {
+            name: 'CreateUser',
+            meta: {
+                index: `/CreateUser`,
+                title: '创建用户',
+                type: 'menu',
+                active: true
             }
         }
     ]

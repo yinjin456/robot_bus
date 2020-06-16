@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="用户列表" name="1">
+            <el-tab-pane label="角色列表" name="1">
                 <div>
                     <el-table
                             :data="tableData"
@@ -10,27 +10,15 @@
                             size="small"
                             height="69vh">
                         <el-table-column
-                                prop="userId"
-                                label="用户id">
-                        </el-table-column>
-                        <el-table-column
-                                prop="username"
-                                label="用户昵称">
-                        </el-table-column>
-                        <el-table-column
                                 prop="roleName"
                                 label="角色">
                         </el-table-column>
                         <el-table-column
-                                prop="realname"
-                                label="姓名">
+                                prop="createDate"
+                                label="创建日期">
                         </el-table-column>
                         <el-table-column
-                                prop="telephone"
-                                label="联系方式">
-                        </el-table-column>
-                        <el-table-column
-                                width="90"
+                                width="140"
                                 label="账号状态">
                             <template slot-scope="scope">
                                 <span v-if="scope.row.isValid=='0'" style="color: #ff4400;font-weight: bolder">停用</span>
@@ -39,7 +27,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                                width="100"
+                                width="140"
                                 label="操作">
                             <template slot-scope="scope">
                                 <el-button type="text" @click="jumpUserDetail(scope.$index, tableData)" size="small">查看详情</el-button>
@@ -58,7 +46,6 @@
                     </el-pagination>
                 </div>
             </el-tab-pane>
-
         </el-tabs>
     </div>
 </template>
@@ -101,11 +88,11 @@
             getList() {
                 var that = this;
                 this.axios
-                    .get(this.Global.baseUrl3 + '/Robot/UserQueryController/getUserPage', {
+                    .get(this.Global.baseUrl3 + '/Robot/RoleQueryController/getRolePage', {
                         params: {
-                            pageIndex: that.currentPage,
-                            pageSize: that.pageSize,
-                            operationUser: '001'
+                            pageIndex: this.currentPage,
+                            pageSize: this.pageSize,
+                            operationUser: this.Cookie.getJSON('loginInfo').userId
                         },
                     })
                     .then(function (response) {
@@ -120,74 +107,11 @@
             },
             jumpUserDetail(index, rows){
                 this.$router.push({
-                    path: '/UserDetail',
+                    path: '/RoleDetail',
                     query: {
                         userId: rows[index].userId
                     }
                 })
-            },
-            addUser(){
-                var that = this;
-                this.axios({
-                    url: this.Global.baseUrl + '/addServiceComponent',
-                    method: 'POST',
-                    params: {
-                        routingTo:that.serviceComponent.routingTo,
-                        routingFrom:that.serviceComponent.routingFrom,
-                        minorVersion:that.serviceComponent.minorVersion,
-                        majorVersion:that.serviceComponent.majorVersion,
-                        wsdlURL:that.serviceComponent.wsdlURL,
-                        targetNamespace:that.serviceComponent.targetNamespace,
-                        portNumber:that.serviceComponent.portNumber,
-                        serviceName:that.serviceComponent.serviceName,
-                        bindingAddress:that.serviceComponent.bindingAddress,
-                        serviceType:that.serviceComponent.serviceType
-                    },
-                    headers:{'Content-Type': "application/json"}
-                }).then(function (response) {
-                    console.log(response);
-                    that.$message({
-                        message: '提交成功',
-                        type: 'success'
-                    });
-                    that.activeName='1';
-                    that.currentPage=1;
-                    that.serviceComponent={
-                        routingTo:'',
-                        routingFrom:'',
-                        minorVersion:'',
-                        majorVersion:'',
-                        wsdlURL:'',
-                        targetNamespace:'',
-                        portNumber:'',
-                        serviceName:'',
-                        bindingAddress:'',
-                        serviceType:''
-                    };
-                }).catch(function (error) {
-                    that.$message.error('提交失败');
-                    console.log(error);
-                });
-                // this.axios
-                //     .post(this.Global.baseUrl + '/addServiceComponent', {
-                //
-                //     })
-                //     .then(function (response) {
-                //         console.log(response);
-                //         if(response.data.result==1){
-                //             that.$message({
-                //                 message: '添加成功',
-                //                 type: 'success'
-                //             });
-                //             that.activeName='1'
-                //             that.serviceComponent={}
-                //         }else{
-                //             that.$message.error('添加失败：' + response.data.message);
-                //         }
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
             }
         },
         mounted() {

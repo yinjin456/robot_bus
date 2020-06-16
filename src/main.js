@@ -9,8 +9,10 @@ import routes from './router/router.js'
 import axios from 'axios';
 import App from './App.vue'
 import Cookie from "js-cookie"
+import VueClipboard from 'vue-clipboard2'
 
 
+Vue.use(VueClipboard)
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 
